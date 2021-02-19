@@ -8,6 +8,7 @@ $FILES = [
   'e_many_teams.in',
 ];
 
+$total_score = 0;
 foreach ($FILES as $FILE) {
   // READ INPUT
   $in = fopen($FILE, "r");
@@ -16,7 +17,7 @@ foreach ($FILES as $FILE) {
 
   $pizzas = [];
   $deliveries = [];
-  $total_score = 0;
+  $file_score = 0;
   $available_teams_map = [
     4 => $T4,
     3 => $T3,
@@ -58,14 +59,15 @@ foreach ($FILES as $FILE) {
       }
       // score of the delivery is the square of unique ingredients
       $delivery_score = pow(count($delivery_ingredients), 2);
-      $total_score += $delivery_score;
+      $file_score += $delivery_score;
       $deliveries[] = [
         'size' => count($delivery_pizzas),
         'pizzas' => $delivery_pizzas,
       ];
     }
   }
-  d("$FILE: $total_score");
+  $total_score += $file_score;
+  d("$FILE: " . n($file_score));
 
   // WRITE OUTPUT
   $out = fopen(pathinfo($FILE, PATHINFO_FILENAME) . '.out', 'w');
@@ -78,6 +80,11 @@ foreach ($FILES as $FILE) {
     fputs($out, "$size $pizzas\n");
   }
   fclose($out);
+}
+d("TOTAL: " . n($total_score));
+
+function n($number) {
+  return number_format($number, 0, '', ',');
 }
 
 function d($output) {
