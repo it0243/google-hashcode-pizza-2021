@@ -1,7 +1,5 @@
 <?php
 
-$f = fopen("a_example.in", "r");
-
 $FILES = [
   'a_example.in',
   'b_little_bit_of_everything.in',
@@ -11,8 +9,6 @@ $FILES = [
 ];
 
 foreach ($FILES as $FILE) {
-
-  // Read file
   $in = fopen($FILE, "r");
 
   list($num_pizzas, $T2, $T3, $T4) = explode(' ', trim(fgets($in)));
@@ -35,7 +31,6 @@ foreach ($FILES as $FILE) {
   fclose($in);
 
   $all_ingredients = array_unique($all_ingredients);
-  // d($all_ingredients);
 
   $deliveries = [];
   $deliveries_count = 0;
@@ -50,8 +45,12 @@ foreach ($FILES as $FILE) {
     3 => $T3,
     2 => $T2,
   ];
+  // iterate for all team sizes starting from larger
   for ($team_size=4; $team_size>=2; $team_size--) {
     $available_teams = $available_teams_map[$team_size];
+    // 1. there should be more available pizzas than the team size (delivery count of pizzas)
+    // 2. also do not leave one pizza out, aka if available pizzas are 5, choose 2+3 instead of 4+1, as the one left will remain unused
+    // 3. the available teams for a specific team size should be > 0
     while (count($available_pizzas) >= $team_size && count($available_pizzas)- $team_size <> 1 && $available_teams > 0) {
       $available_teams--;
       $delivery_pizzas = [];
@@ -62,6 +61,7 @@ foreach ($FILES as $FILE) {
         $delivery_pizzas[] = $pizza['id'];
         $delivery_ingredients = array_unique(array_merge($delivery_ingredients, $pizza['ingredients']));
       }
+      // score of the delivery is the square of unique ingredients
       $delivery_score = pow(count($delivery_ingredients), 2);
       $total_score += $delivery_score;
       $deliveries[] = [
@@ -72,8 +72,7 @@ foreach ($FILES as $FILE) {
       ];
     }
   }
-  // d($deliveries);
-  d($total_score);
+  d("$FILE: $total_score");
 
   $out = fopen(pathinfo($FILE, PATHINFO_FILENAME) . '.out', 'w');
   $deliveries_count = count($deliveries);
