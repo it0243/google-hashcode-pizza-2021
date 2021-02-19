@@ -1,4 +1,4 @@
-# google-hashcode-pizza-2021 in PHP
+# Google Hash Code 2021 Pizza Problem in PHP
 
 [Problem statement](https://bytefreaks.net/google/hash-code/google-hash-code-2021-practice-problem)
 
