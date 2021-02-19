@@ -92,7 +92,7 @@ foreach ($FILES as $FILE) {
 }
 
 function find_pizza_with_max_ingredients($delivery_ingredients, $all_ingredients, &$available_pizzas) {
-  $missing_ingredients = array_intersect($all_ingredients, $delivery_ingredients);
+  $missing_ingredients = array_diff($all_ingredients, $delivery_ingredients);
   usort($available_pizzas, function ($a, $b) use ($missing_ingredients) {
     return count_missing_in_pizza($a, $missing_ingredients) < count_missing_in_pizza($b, $missing_ingredients);
   });
