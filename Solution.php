@@ -3,11 +3,11 @@
 $f = fopen("a_example.in", "r");
 
 $FILES = [
-  // 'a_example.in',
-  // 'b_little_bit_of_everything.in',
+  'a_example.in',
+  'b_little_bit_of_everything.in',
   'c_many_ingredients.in',
-  // 'd_many_pizzas.in',
-  // 'e_many_teams.in',
+  'd_many_pizzas.in',
+  'e_many_teams.in',
 ];
 
 foreach ($FILES as $FILE) {
