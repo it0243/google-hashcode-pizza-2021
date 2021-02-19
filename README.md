@@ -25,17 +25,17 @@ of the ones that it already has, otherwise the next one with max ingredients.
 ## Scores
 
 ### Solution 1
-a_example.in: 65
-b_little_bit_of_everything.in: 5,628
-c_many_ingredients.in: 686,187,748
-d_many_pizzas.in: 5,855,908
-e_many_teams.in: 8,318,751
-TOTAL: 700,368,100
+* a_example.in: 65
+* b_little_bit_of_everything.in: 5,628
+* c_many_ingredients.in: 686,187,748
+* d_many_pizzas.in: 5,855,908
+* e_many_teams.in: 8,318,751
+* TOTAL: 700,368,100
 
 ### Solution 2
-a_example.in: 65
-b_little_bit_of_everything.in: 6,084
-c_many_ingredients.in: 687,301,871
-d_many_pizzas.in: 6,319,493
-e_many_teams.in: 8,754,231
-TOTAL: 702,381,744
+* a_example.in: 65
+* b_little_bit_of_everything.in: 6,084
+* c_many_ingredients.in: 687,301,871
+* d_many_pizzas.in: 6,319,493
+* e_many_teams.in: 8,754,231
+* TOTAL: 702,381,744
