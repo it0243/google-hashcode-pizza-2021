@@ -60,8 +60,10 @@ foreach ($FILES as $FILE) {
       $delivery_pizzas = [];
       $delivery_ingredients = [];
       for ($i = 0; $i < $team_size; $i++) {
+        // the first pizza of a delivery can be the first from the ordered by size (desc) pizzas list
+        // the rest pizzas of the delivery should be selected based on an optimization algorithm
         if ($i >= 1) {
-          $pizza = find_pizza_with_max_ingredients($delivery_ingredients, $available_pizzas);
+          $pizza = find_pizza_with_max_ingredients($delivery_ingredients, $available_pizzas, $num_pizzas);
           $calculated == true;
         } else {
           $pizza = array_shift($available_pizzas);
@@ -95,24 +97,40 @@ foreach ($FILES as $FILE) {
 }
 d("TOTAL: " . n($total_score));
 
+/**
+ * Formats numbers with thousand seperator ,
+ */
 function n($number) {
   return number_format($number, 0, '', ',');
 }
 
-function find_pizza_with_max_ingredients($delivery_ingredients, &$available_pizzas) {
-  for ($i=0; $i < count($available_pizzas); $i++) {
-    $pizza = $available_pizzas[$i];
-    $new = count_new_in_pizza($pizza, $delivery_ingredients);
-    if ($new >= count($delivery_ingredients) / 2) {
-      array_splice($available_pizzas, $i, 1);
-      return $pizza;
-    }
+/**
+ * Returns a pizza from the available pizzas list that optimizes the delivery's ingredients.
+ * It uses 2 different algorithms for the selection of the best pizza.
+ * First algorithm is for problems with many pizzas (>1000 -> files C, D & E).
+ * It selects the pizza with the more new ingredients, compared to the delivery's ingredients.
+ * Second algorithm is for problems with fewer pizzas (<1000 -> files A & B).
+ * It selects the pizza with the less wasted ingredients percentage, compared to the delivery's ingredients.
+ */
+function find_pizza_with_max_ingredients($delivery_ingredients, &$available_pizzas, $num_pizzas) {
+  if ($num_pizzas > 1000) {
+    usort($available_pizzas, function ($a, $b) use ($delivery_ingredients) {
+      return count_new_in_pizza($a, $delivery_ingredients) < count_new_in_pizza($b, $delivery_ingredients);
+    });
+  } else {
+    usort($available_pizzas, function ($a, $b) use ($delivery_ingredients) {
+      return percentage_wasted_in_pizza($a, $delivery_ingredients) > percentage_wasted_in_pizza($b, $delivery_ingredients);
+    });
   }
   return array_shift($available_pizzas);
 }
 
 function count_new_in_pizza($pizza, $delivery_ingredients) {
   return count(array_diff($pizza['ingredients'], $delivery_ingredients));
+}
+
+function percentage_wasted_in_pizza($pizza, $delivery_ingredients) {
+  return count(array_intersect($pizza['ingredients'], $delivery_ingredients)) / $pizza['count'];
 }
 
 function d($output) {
