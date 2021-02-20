@@ -25,7 +25,7 @@ then 3-member and finally 2-member.
 
 ## Times
 1. Solution 1 executes in 26 seconds.
-2. Solution 2 executes in 300 minutes.
+2. Solution 2 executes in 750 minutes.
 
 ## Scores
 
@@ -42,5 +42,5 @@ then 3-member and finally 2-member.
 * b_little_bit_of_everything.in: 10,165
 * c_many_ingredients.in: 705,021,030
 * d_many_pizzas.in: 7,773,443
-* e_many_teams.in: 9,243,902
-* TOTAL: 722,048,614
+* e_many_teams.in: 10,699,719
+* TOTAL: 723,504,431
