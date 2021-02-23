@@ -11,7 +11,7 @@
  * Defines whether the optimized solution should be used.
  * Defaults to false, aka. the 1st quick solution.
  */
-$OPTIMIZED = TRUE;
+$OPTIMIZED = FALSE;
 
 $FILES = [
   'a_example.in',
