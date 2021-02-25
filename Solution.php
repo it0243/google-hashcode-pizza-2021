@@ -120,8 +120,8 @@ function find_pizza_with_max_ingredients($delivery_ingredients, &$available_pizz
       $count_new_a = count_new_in_pizza($a, $delivery_ingredients);
       $count_new_b = count_new_in_pizza($b, $delivery_ingredients);
       return $count_new_a === $count_new_b ?
-      percentage_wasted_in_pizza($a, $delivery_ingredients) > percentage_wasted_in_pizza($b, $delivery_ingredients) :
-      $count_new_a < $count_new_b;
+        percentage_wasted_in_pizza($a, $delivery_ingredients) > percentage_wasted_in_pizza($b, $delivery_ingredients) :
+        $count_new_a < $count_new_b;
     });
   } else {
     usort($available_pizzas, function ($a, $b) use ($delivery_ingredients) {
