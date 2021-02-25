@@ -112,15 +112,24 @@ function n($number) {
  * It selects the pizza with the more new ingredients, compared to the delivery's ingredients.
  * Second algorithm is for problems with fewer pizzas (<1000 -> files A & B).
  * It selects the pizza with the less wasted ingredients percentage, compared to the delivery's ingredients.
+ * If two pizzas have the same score in an algorithm, it used the other one to compare them.
  */
 function find_pizza_with_max_ingredients($delivery_ingredients, &$available_pizzas, $num_pizzas) {
   if ($num_pizzas > 1000) {
     usort($available_pizzas, function ($a, $b) use ($delivery_ingredients) {
-      return count_new_in_pizza($a, $delivery_ingredients) < count_new_in_pizza($b, $delivery_ingredients);
+      $count_new_a = count_new_in_pizza($a, $delivery_ingredients);
+      $count_new_b = count_new_in_pizza($b, $delivery_ingredients);
+      return $count_new_a === $count_new_b ?
+      percentage_wasted_in_pizza($a, $delivery_ingredients) > percentage_wasted_in_pizza($b, $delivery_ingredients) :
+      $count_new_a < $count_new_b;
     });
   } else {
     usort($available_pizzas, function ($a, $b) use ($delivery_ingredients) {
-      return percentage_wasted_in_pizza($a, $delivery_ingredients) > percentage_wasted_in_pizza($b, $delivery_ingredients);
+      $percentage_wasted_a = percentage_wasted_in_pizza($a, $delivery_ingredients);
+      $percentage_wasted_b = percentage_wasted_in_pizza($b, $delivery_ingredients);
+      return $percentage_wasted_a === $percentage_wasted_b ?
+        count_new_in_pizza($a, $delivery_ingredients) < count_new_in_pizza($b, $delivery_ingredients) :
+        $percentage_wasted_a  > $percentage_wasted_b;
     });
   }
   return array_shift($available_pizzas);
