@@ -39,8 +39,8 @@ then 3-member and finally 2-member.
 
 ### Solution 2
 * a_example.in: 74
-* b_little_bit_of_everything.in: 10,165
+* b_little_bit_of_everything.in: 10,588
 * c_many_ingredients.in: 705,021,030
 * d_many_pizzas.in: 7,773,443
 * e_many_teams.in: 10,699,719
-* TOTAL: 723,504,431
+* TOTAL: 723,504,854
